@@ -1,4 +1,4 @@
-const { connectToDatabase } = require('./dbconnection');
+const { sql,connectToDatabase } = require('./dbconnection');
 
 async function ejecutarConsultaS() {
     let pool = await connectToDatabase();

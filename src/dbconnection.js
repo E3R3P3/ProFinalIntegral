@@ -13,5 +13,6 @@ async function connectToDatabase() {
 }
 
 module.exports = {
+    sql,
     connectToDatabase
 };
