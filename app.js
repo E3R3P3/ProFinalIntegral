@@ -10,7 +10,7 @@ app.set("view engine", "ejs");
 app.use(express.static (path.join (__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.send('¡Aqui es La rais');
+  res.send('Aqui es La rais');
 });
 
 app.get('/home', (req, res) => {
