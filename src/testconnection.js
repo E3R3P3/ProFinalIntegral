@@ -5,7 +5,7 @@ async function ejecutarConsultaS() {
     if (pool) {
         try {
             let result = await pool.request()
-                .query('SELECT * FROM Toyota_Yaris');
+                .query('SELECT * FROM Carros where Consumo_Ciudad_L100km = 6.7');
             
             console.log("Resultados de la consulta:", result.recordset);
         } catch (err) {
@@ -17,7 +17,7 @@ async function ejecutarConsultaS() {
   }
   
   async function ejecutarConsultass() {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
         let pool = await connectToDatabase();
         n = i;
         if (pool) {
@@ -37,6 +37,6 @@ async function ejecutarConsultaS() {
   }
   
   module.exports = {ejecutarConsultaS};
-  module.exports = {ejecutarConsultass};
+  //module.exports = {ejecutarConsultass};
   //ejecutarConsultaS();
   //ejecutarConsultass();
