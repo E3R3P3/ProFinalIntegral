@@ -2,58 +2,81 @@ const express = require('express');
 const app1 = express();
 const { getMarcaData } = require('./marcas');
 const { sql,connectToDatabase } = require('./dbconnection');
+const cors = require('cors');
 
 const port = 2233;
+app1.use(cors());
 
 app1.get('/carros', async (req, res) => {
-    const { marcaId, ano, generacion, tipo_motor, consumo_ciudad, consumo_carretera, consumo_mixto, promedio_kmL_ciudad, promedio_kmL_carretera, promedio_kmL_mixto } = req.query;
+    const conditions = []; // Array para almacenar las condiciones SQL
+    const params = {}; // Objeto para almacenar los parámetros y sus valores
+
+    // Recorremos los parámetros de consulta
+    Object.keys(req.query).forEach(key => {
+        const value = req.query[key];
+
+        // Definimos la condición y añadimos el parámetro correspondiente
+        switch (key) {
+            case 'marcaId':
+                conditions.push('MarcaID = @marcaId');
+                params.marcaId = { type: sql.Int, value: parseInt(value) };
+                break;
+            case 'ano':
+                conditions.push('Año = @ano');
+                params.ano = { type: sql.Int, value: parseInt(value) };
+                break;
+            case 'generacion':
+                conditions.push('Generacion = @generacion');
+                params.generacion = { type: sql.VarChar, value };
+                break;
+            case 'tipo_motor':
+                conditions.push('Tipo_Motor = @tipo_motor');
+                params.tipo_motor = { type: sql.VarChar, value };
+                break;
+            case 'consumo_ciudad':
+                conditions.push('Consumo_Ciudad_L100km = @consumo_ciudad');
+                params.consumo_ciudad = { type: sql.Float, value: parseFloat(value) };
+                break;
+            case 'consumo_carretera':
+                conditions.push('Consumo_Carretera_L100km = @consumo_carretera');
+                params.consumo_carretera = { type: sql.Float, value: parseFloat(value) };
+                break;
+            case 'consumo_mixto':
+                conditions.push('Consumo_Mixto_L100km = @consumo_mixto');
+                params.consumo_mixto = { type: sql.Float, value: parseFloat(value) };
+                break;
+            case 'promedio_kmL_ciudad':
+                conditions.push('Promedio_kmL_Ciudad = @promedio_kmL_ciudad');
+                params.promedio_kmL_ciudad = { type: sql.Float, value: parseFloat(value) };
+                break;
+            case 'promedio_kmL_carretera':
+                conditions.push('Promedio_kmL_Carretera = @promedio_kmL_carretera');
+                params.promedio_kmL_carretera = { type: sql.Float, value: parseFloat(value) };
+                break;
+            case 'promedio_kmL_mixto':
+                conditions.push('Promedio_kmL_Mixto = @promedio_kmL_mixto');
+                params.promedio_kmL_mixto = { type: sql.Float, value: parseFloat(value) };
+                break;
+            // Añadir más casos según los campos de tu tabla Carros
+        }
+    });
 
     try {
         await connectToDatabase();
         
-        let query = 'SELECT * FROM Carros WHERE 1=1';
+        let query = 'SELECT * FROM Carros';
+        
+        if (conditions.length > 0) {
+            query += ' WHERE ' + conditions.join(' AND ');
+        }
+
         const request = new sql.Request();
 
-        if (marcaId) {
-            query += ' AND MarcaID = @marcaId';
-            request.input('marcaId', sql.Int, parseInt(marcaId));
-        }
-        if (ano) {
-            query += ' AND Año = @ano';
-            request.input('ano', sql.Int, parseInt(ano));
-        }
-        if (generacion) {
-            query += ' AND Generacion = @generacion';
-            request.input('generacion', sql.VarChar, generacion);
-        }
-        if (tipo_motor) {
-            query += ' AND Tipo_Motor = @tipo_motor';
-            request.input('tipo_motor', sql.VarChar, tipo_motor);
-        }
-        if (consumo_ciudad) {
-            query += ' AND Consumo_Ciudad_L100km = @consumo_ciudad';
-            request.input('consumo_ciudad', sql.Float, parseFloat(consumo_ciudad));
-        }
-        if (consumo_carretera) {
-            query += ' AND Consumo_Carretera_L100km = @consumo_carretera';
-            request.input('consumo_carretera', sql.Float, parseFloat(consumo_carretera));
-        }
-        if (consumo_mixto) {
-            query += ' AND Consumo_Mixto_L100km = @consumo_mixto';
-            request.input('consumo_mixto', sql.Float, parseFloat(consumo_mixto));
-        }
-        if (promedio_kmL_ciudad) {
-            query += ' AND Promedio_kmL_Ciudad = @promedio_kmL_ciudad';
-            request.input('promedio_kmL_ciudad', sql.Float, parseFloat(promedio_kmL_ciudad));
-        }
-        if (promedio_kmL_carretera) {
-            query += ' AND Promedio_kmL_Carretera = @promedio_kmL_carretera';
-            request.input('promedio_kmL_carretera', sql.Float, parseFloat(promedio_kmL_carretera));
-        }
-        if (promedio_kmL_mixto) {
-            query += ' AND Promedio_kmL_Mixto = @promedio_kmL_mixto';
-            request.input('promedio_kmL_mixto', sql.Float, parseFloat(promedio_kmL_mixto));
-        }
+        // Añadimos los parámetros a la consulta
+        Object.keys(params).forEach(key => {
+            const { type, value } = params[key];
+            request.input(key, type, value);
+        });
 
         const result = await request.query(query);
 
@@ -66,8 +89,6 @@ app1.get('/carros', async (req, res) => {
     }
 });
 
-
-
 app1.listen(port, () => {
-    console.log(`Servidor de consultas escuchando en http://localhost:${port}`);
+    console.log(`Servidor ejecutándose en http://localhost:${port}`);
 });
