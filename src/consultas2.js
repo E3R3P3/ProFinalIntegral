@@ -57,6 +57,10 @@ app1.get('/carros', async (req, res) => {
                 conditions.push('Promedio_kmL_Mixto = @promedio_kmL_mixto');
                 params.promedio_kmL_mixto = { type: sql.Float, value: parseFloat(value) };
                 break;
+            case 'modelo':
+                conditions.push('Modelo = @modelo');
+                params.modelo = { type: sql.VarChar, value };
+                break;
             // Añadir más casos según los campos de tu tabla Carros
         }
     });
