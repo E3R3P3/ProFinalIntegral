@@ -11,6 +11,8 @@ app.set("view engine", "ejs");
 
 app.use(express.static (path.join (__dirname, 'public')));
 
+require('./src/consultas2');
+
 app.get('/1', async (req, res) => {
   try {
     const Data = await getMarcaData(4);
@@ -19,16 +21,13 @@ app.get('/1', async (req, res) => {
     res.status(500).json({ error: 'Error fetching Carros data' });
   }
 });
-app.get('/2', (req, res) => {
-  ejecutarConsultass();
-});
 
 app.get('/', (req, res) => {
-  res.send('Aqui es la pagina principal');
+  res.send('Pagina principal');
 });
 
 app.get('/home', (req, res) => {
-    res.render('index', { title: 'Mi Página Web', message: 'Hola Mundo' });
+    res.render('index', { title: 'Mi Pagina Web', message: 'Hola Mundo' });
 });
 
 app.get('/about', (req, res) => {
