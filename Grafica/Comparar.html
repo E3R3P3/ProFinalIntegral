@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comparación</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div>
+        <div class="form-group">
+            <label for="marcaId1">Marca 1:</label>
+            <select id="marcaId1">
+                <option value=""></option>
+                <option value="1">Toyota</option>
+                <option value="2">Honda</option>
+                <option value="3">Hyundai</option>
+                <option value="4">Kia</option>
+                <option value="5">Suzuki</option>
+                <option value="6">Nissan</option>
+                <option value="7">Volkswagen</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ano1">Año 1:</label>
+            <select id="ano1">
+                <option value=""></option>
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="modelo1">Modelo 1:</label>
+            <select id="modelo1">
+                <option value=""></option>
+                <option value="Civic">Civic</option>
+                <option value="Corolla">Corolla</option>
+                <option value="Jetta">Jetta</option>
+                <option value="K5">K5</option>
+                <option value="Rio">Rio</option>
+                <option value="Sentra">Sentra</option>
+                <option value="Sonata">Sonata</option>
+                <option value="Swift">Swift</option>
+                <option value="Tucson">Tucson</option>
+                <option value="Yaris">Yaris</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <div class="form-group">
+            <label for="marcaId2">Marca 2:</label>
+            <select id="marcaId2">
+                <option value=""></option>
+                <option value="1">Toyota</option>
+                <option value="2">Honda</option>
+                <option value="3">Hyundai</option>
+                <option value="4">Kia</option>
+                <option value="5">Suzuki</option>
+                <option value="6">Nissan</option>
+                <option value="7">Volkswagen</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ano2">Año 2:</label>
+            <select id="ano2">
+                <option value=""></option>
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="modelo1">Modelo 2:</label>
+            <select id="modelo2">
+                <option value=""></option>
+                <option value="Civic">Civic</option>
+                <option value="Corolla">Corolla</option>
+                <option value="Jetta">Jetta</option>
+                <option value="K5">K5</option>
+                <option value="Rio">Rio</option>
+                <option value="Sentra">Sentra</option>
+                <option value="Sonata">Sonata</option>
+                <option value="Swift">Swift</option>
+                <option value="Tucson">Tucson</option>
+                <option value="Yaris">Yaris</option>
+            </select>
+        </div>
+    </div>
+    <button onclick="updateData()">Comparar</button>
+    <canvas id="carrosChart" width="400" height="200"></canvas>
+</body>
+<script>
+    let carrosChart;
+
+    async function fetchCarrosData(query) {
+        const response = await fetch(query);
+        const data = await response.json();
+        return data;
+    }
+
+    function updateData() {
+        const marcaId1 = document.getElementById('marcaId1').value;
+        const ano1 = document.getElementById('ano1').value;
+        const modelo1 = document.getElementById('modelo1').value;
+
+        const marcaId2 = document.getElementById('marcaId2').value;
+        const ano2 = document.getElementById('ano2').value;
+        const modelo2 = document.getElementById('modelo2').value;
+
+        let query1 = `http://localhost:2233/carros?`;
+        let query2 = `http://localhost:2233/carros?`;
+
+        if (marcaId1) query1 += `marcaId=${marcaId1}&`;
+        if (ano1) query1 += `ano=${ano1}&`;
+        if (modelo1) query1 += `modelo=${modelo1}&`;
+        query1 = query1.slice(0, -1); // Eliminar el último carácter '&'
+
+        if (marcaId2) query2 += `marcaId=${marcaId2}&`;
+        if (ano2) query2 += `ano=${ano2}&`;
+        if (modelo2) query2 += `modelo=${modelo2}&`;
+        query2 = query2.slice(0, -1); // Eliminar el último carácter '&'
+
+        Promise.all([fetchCarrosData(query1), fetchCarrosData(query2)]).then(data => {
+            if (carrosChart) {
+                carrosChart.destroy();
+            }
+            createChart(data[0], data[1]);
+        });
+    }
+
+    function createChart(data1, data2) {
+        const ctx = document.getElementById('carrosChart').getContext('2d');
+        const labels1 = data1.map(car => car.Modelo);
+        const labels2 = data2.map(car => car.Modelo);
+        const modelo1 = document.getElementById('modelo1').value;
+        const modelo2 = document.getElementById('modelo2').value;
+
+        //Cosumo del modelo 1
+        const consumoCiudad1 = data1.map(car => car.Consumo_Ciudad_L100km);
+        const consumoCarretera1 = data1.map(car => car.Consumo_Carretera_L100km);
+        const consumoMixto1 = data1.map(car => car.Consumo_Mixto_L100km);
+        //Cosumo del modelo 1
+
+        //Cosumo del modelo 2
+        const consumoCiudad2 = data2.map(car => car.Consumo_Ciudad_L100km);
+        const consumoCarretera2 = data2.map(car => car.Consumo_Carretera_L100km);
+        const consumoMixto2 = data2.map(car => car.Consumo_Mixto_L100km);
+        //Cosumo del modelo 2
+
+
+        var fondo = false;
+
+        carrosChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+                datasets: [
+                    {
+                        label: 'Consumo Ciudad (L/100km) del '+modelo1,
+                        data: consumoCiudad1,
+                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                        borderColor: '#FF0000',
+                        borderWidth: 3,
+                        fill: fondo
+                    },
+                    {
+                        label: 'Consumo Ciudad (L/100km) del '+modelo2,
+                        data: consumoCiudad2,
+                        backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                        borderColor: '#FFFF00',
+                        borderWidth: 3,
+                        fill: fondo
+                    },
+                    {
+                        label: 'Consumo Carretera (L/100km) del '+modelo1,
+                        data: consumoCarretera1,
+                        backgroundColor: 'rgba(0, 128, 0, 0.2)',
+                        borderColor: '#008000',
+                        borderWidth: 3,
+                        fill: fondo
+                    },
+                    {
+                        label: 'Consumo Carretera (L/100km) del '+modelo2,
+                        data: consumoCarretera2,
+                        backgroundColor: 'rgba(223, 141, 0, 0.2)',
+                        borderColor: '#DF8D00',
+                        borderWidth: 3,
+                        fill: fondo
+                    },
+                    {
+                        label: 'Consumo Mixto (L/100km) del '+modelo1,
+                        data: consumoMixto1,
+                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                        borderColor: '#0000FF',
+                        borderWidth: 3,
+                        fill: fondo
+                    },
+                    {
+                        label: 'Consumo Mixto (L/100km) del '+modelo2,
+                        data: consumoMixto2,
+                        backgroundColor: 'rgba(128, 0, 128, 0.2)',
+                        borderColor: '#800080',
+                        borderWidth: 3,
+                        fill: fondo
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Obtener datos iniciales y crear un gráfico
+    fetchCarrosData('http://localhost:2233/carros?marcaId=1').then(data => createChart(data, []));
+
+</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="mt-5">Consumo de Carros</h1>
+        <div class="form-group">
+            <label for="marcaId">Marca ID:</label>
+            <select id="marcaId">
+                <option value=""></option>
+                <option value="1">Toyota</option>
+                <option value="2">Honda</option>
+                <option value="3">Hyundai</option>
+                <option value="4">Kia</option>
+                <option value="5">Suzuki</option>
+                <option value="6">Nissan</option>
+                <option value="7">Volkswagen</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ano">Año:</label>
+            <select id="ano">
+                <option value=""></option>
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <select id="modelo">
+                <option value=""></option>
+                <option value="Civic">Civic</option>
+                <option value="Corolla">Corolla</option>
+                <option value="Jetta">Jetta</option>
+                <option value="K5">K5</option>
+                <option value="Rio">Rio</option>
+                <option value="Sentra">Sentra</option>
+                <option value="Sonata">Sonata</option>
+                <option value="Swift">Swift</option>
+                <option value="Tucson">Tucson</option>
+                <option value="Yaris">Yaris</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="generacion">Generación:</label>
+            <select id="generacion">
+                <option value=""></option>
+                <option value="1ra generación">1ra</option>
+                <option value="2da generación">2da</option>
+                <option value="3ra generación">3ra</option>
+                <option value="4ta generación">4ta</option>
+                <option value="5ta generación">5ta</option>
+                <option value="6ta generación">6ta</option>
+                <option value="7ma generación">7ma</option>
+                <option value="8va generación">8va</option>
+                <option value="9na generación">9na</option>
+                <option value="10ma generación">10ma</option>
+                <option value="10va generación">10va</option>
+                <option value="11va generación">11va</option>
+                <option value="12va generación">12va</option>
+            </select>
+            
+        </div>
+        <div class="form-group">
+            <label for="tipoMotor">Tipo de Motor:</label>
+            <select id="tipoMotor">
+                <option value=""></option>
+                <option value="Gasolina">Gasolina</option>
+                <option value="Gasolina 1.0L">Gasolina 1.0L</option>
+                <option value="Gasolina 1.0L Turbo">Gasolina 1.0L Turbo</option>
+                <option value="Gasolina 1.2L">Gasolina 1.2L</option>
+                <option value="Gasolina 1.2L Hybrid">Gasolina 1.2L Hybrid</option>
+                <option value="Gasolina 1.2L Mild Hybrid">Gasolina 1.2L Mild Hybrid</option>
+                <option value="Gasolina 1.3L">Gasolina 1.3L</option>
+                <option value="Gasolina 1.4">Gasolina 1.4</option>
+                <option value="Gasolina 1.4L">Gasolina 1.4L</option>
+                <option value="Gasolina 1.4L Turbo">Gasolina 1.4L Turbo</option>
+                <option value="Gasolina 1.5L">Gasolina 1.5L</option>
+                <option value="Gasolina 1.5L Turbo">Gasolina 1.5L Turbo</option>
+                <option value="Gasolina 1.6L">Gasolina 1.6L</option>
+                <option value="Gasolina 1.6L Turbo Híbrido">Gasolina 1.6L Turbo Híbrido</option>
+                <option value="Gasolina 1.8L">Gasolina 1.8L</option>
+                <option value="Gasolina 1.9L Turbo">Gasolina 1.9L Turbo</option>
+                <option value="Gasolina 2.0L">Gasolina 2.0L</option>
+                <option value="Gasolina 2.0L Turbo">Gasolina 2.0L Turbo</option>
+                <option value="Gasolina 2.4L">Gasolina 2.4L</option>
+                <option value="Gasolina 2.5L">Gasolina 2.5L</option>
+                <option value="Gasolina 2.5L Híbrido">Gasolina 2.5L Híbrido</option>
+                <option value="Gasolina 2.7L V6">Gasolina 2.7L V6</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="consumoCiudad">Consumo Ciudad (L/100km)</label>
+            <input type="text" class="form-control" id="consumoCiudad" placeholder="Introduce el Consumo en Ciudad">
+        </div>
+        <div class="form-group">
+            <label for="consumoCarretera">Consumo Carretera (L/100km)</label>
+            <input type="text" class="form-control" id="consumoCarretera" placeholder="Introduce el Consumo en Carretera">
+        </div>
+        <div class="form-group">
+            <label for="consumoMixto">Consumo Mixto (L/100km)</label>
+            <input type="text" class="form-control" id="consumoMixto" placeholder="Introduce el Consumo Mixto">
+        </div>
+        <button class="btn btn-primary" onclick="updateData()">Consultar</button>
+        <canvas id="carrosChart" width="400" height="200" class="mt-4"></canvas>
+        <canvas id="nuevaGrafica" width="400" height="200"></canvas>
+    </div>
+
+</body>
+</html>

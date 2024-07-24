@@ -66,15 +66,15 @@ app1.get('/carros', async (req, res) => {
     });
 
     try {
-        await connectToDatabase();
-        
+        const pool = await connectToDatabase();
+
         let query = 'SELECT * FROM Carros';
-        
+
         if (conditions.length > 0) {
             query += ' WHERE ' + conditions.join(' AND ');
         }
 
-        const request = new sql.Request();
+        const request = pool.request();
 
         // Añadimos los parámetros a la consulta
         Object.keys(params).forEach(key => {
