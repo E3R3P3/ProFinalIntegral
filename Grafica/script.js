@@ -140,7 +140,7 @@ function createChart(data) {
 }
 
 // Obtener datos iniciales y crear un gráfico
-fetchCarrosData('http://localhost:2233/carros?marcaId=1&ano=2011').then(data => createChart(data));
+//fetchCarrosData('http://localhost:2233/carros?marcaId=1&ano=2011').then(data => createChart(data));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ function GraficaModelo(data) {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Llama a updateData con parámetros predeterminados para cargar la gráfica existente
-    fetchCarrosData('http://localhost:2233/carros?').then(data => createChart(data));
+    //fetchCarrosData('http://localhost:2233/carros?').then(data => createChart(data));
     
     // Llama a fetchNuevaGraficaData con parámetros específicos para cargar la nueva gráfica
     fetchNuevaGraficaData('http://localhost:2233/carros?').then(data => createNuevaGrafica(data));
