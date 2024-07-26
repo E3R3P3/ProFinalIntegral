@@ -49,29 +49,37 @@ function updateData() {
 
 function createChart(data) {
     const ctx = document.getElementById('carrosChart').getContext('2d');
-    const labels = data.map(car => car.Modelo);
+    //const labels = data.map(car => car.Modelo);
     const consumoCiudad = data.map(car => car.Consumo_Ciudad_L100km);
     const consumoCarretera = data.map(car => car.Consumo_Carretera_L100km);
     const consumoMixto = data.map(car => car.Consumo_Mixto_L100km);
     const promedioCiudad = data.map(car => car.Promedio_kmL_Ciudad);
     const promedioCarretera = data.map(car => car.Promedio_kmL_Carretera);
     const promedioMixto = data.map(car => car.Promedio_kmL_Mixto);
+
+    const labels = [];
+    for (let i = 0; i < data.length; i++) {
+        labels.push(`${data[i].Año} - ${data[i].Modelo}`);
+    }
     
-    var colorFondo = false;
+    var colorFondo = true;
 
     var Grosor_Linea = 3;
 
-    var ClorBord_ConsumoCiudad = '#FF0000';
+    var ColorBord_ConsumoCiudad = '#FF0000';
+    var ColorBord_ConsumoCarretera = '#008000';
+    var ColorBord_ConsumoMixto = '#0000FF';
+    var ColorBord_ConsumoCiudad_Promedio = '#FFFF00';
+    var ColorBord_ConsumoCarretera_Promedio = '#DF8D00';
+    var ColorBord_ConsumoMixto_Promedio = '#800080';
 
-    var ClorBord_ConsumoCarretera = '#008000';
+    var ColorFond_ConsumoCiudad = '255, 0, 0, 0.1';
+    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.2';
+    var ColorFond_ConsumoMixto = '0, 0, 255, 0.3';
+    var ColorFond_ConsumoCiudad_Promedio = '255, 255, 0, 0.1';
+    var ColorFond_ConsumoCarretera_Promedio = '223, 141, 0, 0.2';
+    var ColorFond_ConsumoMixto_Promedio = '128, 0, 128, 0.3';
 
-    var ClorBord_ConsumoMixto = '#0000FF';
-
-    var ClorBord_ConsumoCiudad_Promedio = '#FFFF00';
-
-    var ClorBord_ConsumoCarretera_Promedio = '#DF8D00';
-
-    var ClorBord_ConsumoMixto_Promedio = '#800080';
 
     carrosChart = new Chart(ctx, {
         type: 'line',
@@ -81,48 +89,48 @@ function createChart(data) {
                 {
                     label: 'Consumo Ciudad (L/100km)',
                     data: consumoCiudad,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: ClorBord_ConsumoCiudad,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoCiudad+')',
+                    borderColor: ColorBord_ConsumoCiudad,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 },
                 {
                     label: 'Consumo Carretera (L/100km)',
                     data: consumoCarretera,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: ClorBord_ConsumoCarretera,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoCarretera+')',
+                    borderColor: ColorBord_ConsumoCarretera,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 },
                 {
                     label: 'Consumo Mixto (L/100km)',
                     data: consumoMixto,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: ClorBord_ConsumoMixto,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoMixto+')',
+                    borderColor: ColorBord_ConsumoMixto,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 },
                 {
                     label: 'Promedio Ciudad (km/L)',
                     data: promedioCiudad,
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    borderColor: ClorBord_ConsumoCiudad_Promedio,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoCiudad_Promedio+')',
+                    borderColor: ColorBord_ConsumoCiudad_Promedio,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 },
                 {
                     label: 'Promedio Carretera (km/L)',
                     data: promedioCarretera,
-                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                    borderColor: ClorBord_ConsumoCarretera_Promedio,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoCarretera_Promedio+')',
+                    borderColor: ColorBord_ConsumoCarretera_Promedio,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 },
                 {
                     label: 'Promedio Mixto (km/L)',
                     data: promedioMixto,
-                    backgroundColor: 'rgba(201, 203, 207, 0.2)',
-                    borderColor: ClorBord_ConsumoMixto_Promedio,
+                    backgroundColor: 'rgba('+ColorFond_ConsumoMixto_Promedio+')',
+                    borderColor: ColorBord_ConsumoMixto_Promedio,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
                 }
@@ -379,3 +387,77 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchCarrosData('http://localhost:2233/carros?modelo=Yaris').then(data => GraficaEmisionModelo(data));
 });
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let acumuladoCiudad = 0;
+let acumuladoAutopista = 0;
+let acumuladoMixto = 0;
+let rondas = 0;
+const consumosCiudad = [];
+const consumosAutopista = [];
+const consumosMixto = [];
+
+function calcularConsumoYEmisiones() {
+    const factorCO2 = 2.31; // g CO2 por cada gramo de combustible quemado
+
+    // Obtener los datos del formulario
+    const tanqueInicialCiudad = parseFloat(document.getElementById('tanqueInicialCiudad').value);
+    const tanqueFinalCiudad = parseFloat(document.getElementById('tanqueFinalCiudad').value);
+    const tanqueInicialAutopista = parseFloat(document.getElementById('tanqueInicialAutopista').value);
+    const tanqueFinalAutopista = parseFloat(document.getElementById('tanqueFinalAutopista').value);
+    const tanqueInicialMixto = parseFloat(document.getElementById('tanqueInicialMixto').value);
+    const tanqueFinalMixto = parseFloat(document.getElementById('tanqueFinalMixto').value);
+
+    // Calcular el consumo medio para cada escenario
+    const consumoCiudad = tanqueInicialCiudad - tanqueFinalCiudad;
+    const consumoAutopista = tanqueInicialAutopista - tanqueFinalAutopista;
+    const consumoMixto = tanqueInicialMixto - tanqueFinalMixto;
+
+    // Guardar los consumos en los arrays
+    consumosCiudad.push(consumoCiudad);
+    consumosAutopista.push(consumoAutopista);
+    consumosMixto.push(consumoMixto);
+    rondas++;
+    window.alert("Rondas:"+rondas);
+    // Actualizar los acumulados
+    acumuladoCiudad += consumoCiudad;
+    acumuladoAutopista += consumoAutopista;
+    acumuladoMixto += consumoMixto;
+
+    if (rondas < 5) {
+        // Mostrar resultados acumulados para rondas 1 a 4
+        document.getElementById('consumoCiudad').innerText = (acumuladoCiudad / rondas).toFixed(2);
+        document.getElementById('emisionesCiudad').innerText = ((acumuladoCiudad / rondas) * factorCO2 * 10).toFixed(2);
+        document.getElementById('consumoAutopista').innerText = (acumuladoAutopista / rondas).toFixed(2);
+        document.getElementById('emisionesAutopista').innerText = ((acumuladoAutopista / rondas) * factorCO2 * 10).toFixed(2);
+        document.getElementById('consumoMixto').innerText = (acumuladoMixto / rondas).toFixed(2);
+        document.getElementById('emisionesMixto').innerText = ((acumuladoMixto / rondas) * factorCO2 * 10).toFixed(2);
+    } else {
+        // Mostrar sección de promedios a partir de la ronda 5
+        document.getElementById('promediosHeader').style.display = 'block';
+
+        // Calcular los promedios
+        const promedioCiudad = acumuladoCiudad / rondas;
+        const promedioAutopista = acumuladoAutopista / rondas;
+        const promedioMixto = acumuladoMixto / rondas;
+
+        // Calcular las emisiones de CO2 (en gramos por kilómetro) para cada escenario
+        const emisionesCiudad = promedioCiudad * factorCO2 * 10;
+        const emisionesAutopista = promedioAutopista * factorCO2 * 10;
+        const emisionesMixto = promedioMixto * factorCO2 * 10;
+
+        // Mostrar los resultados promedios
+        document.getElementById('PromedioCiudad').innerText = promedioCiudad.toFixed(2);
+        document.getElementById('PromedioEmisionesCiudad').innerText = emisionesCiudad.toFixed(2);
+        document.getElementById('PromedioAutopista').innerText = promedioAutopista.toFixed(2);
+        document.getElementById('PromedioEmisionesAutopista').innerText = emisionesAutopista.toFixed(2);
+        document.getElementById('PromedioMixto').innerText = promedioMixto.toFixed(2);
+        document.getElementById('PromedioEmisionesMixto').innerText = emisionesMixto.toFixed(2);
+    }
+}
+
+function nuevaRonda() {
+    document.getElementById('co2Form').reset();
+}
