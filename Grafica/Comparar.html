@@ -150,8 +150,8 @@
         const ano2 = document.getElementById('ano2').value;
         const modelo2 = document.getElementById('modelo2').value;
 
-        let query1 = `http://localhost:2233/carros?`;
-        let query2 = `http://localhost:2233/carros?`;
+        let query1 = `http://localhost:2233/!carros?`;
+        let query2 = `http://localhost:2233/!carros?`;
 
         if (marcaId1) query1 += `marcaId=${marcaId1}&`;
         if (ano1) query1 += `ano=${ano1}&`;
@@ -175,8 +175,24 @@
         const ctx = document.getElementById('carrosChart').getContext('2d');
         const labels1 = data1.map(car => car.Modelo);
         const labels2 = data2.map(car => car.Modelo);
-        const modelo1 = document.getElementById('modelo1').value;
-        const modelo2 = document.getElementById('modelo2').value;
+        /*const modelo1 = document.getElementById('modelo1').value;
+        const modelo2 = document.getElementById('modelo2').value;*/
+        
+        // Extraer los años de ambas datasets
+        const anos1 = data1.map(car => car.Año);
+        const anos2 = data2.map(car => car.Año);
+        const modelo1 = data1[0].Modelo;
+        const modelo2 = data2[data2.length -1].Modelo;
+
+        // Encontrar el año más pequeño de data1 y el año más grande de data2
+        const minAno = Math.min(...anos1);
+        const maxAno = Math.max(...anos2);
+
+        // Generar las etiquetas de los años
+        const labels = [];
+        for (let year = maxAno; year >= minAno; year--) {
+            labels.push(year.toString());
+        }
 
         //Cosumo del modelo 1
         const consumoCiudad1 = data1.map(car => car.Consumo_Ciudad_L100km);
@@ -196,10 +212,10 @@
         carrosChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+                labels: labels,
                 datasets: [
                     {
-                        label: 'Consumo Ciudad (L/100km) del '+modelo1,
+                        label: 'Consumo Ciudad (L/100km) del ',
                         data: consumoCiudad1,
                         backgroundColor: 'rgba(255, 0, 0, 0.2)',
                         borderColor: '#FF0000',
@@ -207,7 +223,7 @@
                         fill: fondo
                     },
                     {
-                        label: 'Consumo Ciudad (L/100km) del '+modelo2,
+                        label: 'Consumo Ciudad (L/100km) del ',
                         data: consumoCiudad2,
                         backgroundColor: 'rgba(255, 255, 0, 0.2)',
                         borderColor: '#FFFF00',
@@ -215,7 +231,7 @@
                         fill: fondo
                     },
                     {
-                        label: 'Consumo Carretera (L/100km) del '+modelo1,
+                        label: 'Consumo Carretera (L/100km) del ',
                         data: consumoCarretera1,
                         backgroundColor: 'rgba(0, 128, 0, 0.2)',
                         borderColor: '#008000',
@@ -223,7 +239,7 @@
                         fill: fondo
                     },
                     {
-                        label: 'Consumo Carretera (L/100km) del '+modelo2,
+                        label: 'Consumo Carretera (L/100km) del ',
                         data: consumoCarretera2,
                         backgroundColor: 'rgba(223, 141, 0, 0.2)',
                         borderColor: '#DF8D00',
@@ -231,7 +247,7 @@
                         fill: fondo
                     },
                     {
-                        label: 'Consumo Mixto (L/100km) del '+modelo1,
+                        label: 'Consumo Mixto (L/100km) del ',
                         data: consumoMixto1,
                         backgroundColor: 'rgba(0, 0, 255, 0.2)',
                         borderColor: '#0000FF',
@@ -239,7 +255,7 @@
                         fill: fondo
                     },
                     {
-                        label: 'Consumo Mixto (L/100km) del '+modelo2,
+                        label: 'Consumo Mixto (L/100km) del ',
                         data: consumoMixto2,
                         backgroundColor: 'rgba(128, 0, 128, 0.2)',
                         borderColor: '#800080',
