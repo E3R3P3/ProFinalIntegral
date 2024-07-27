@@ -420,6 +420,7 @@ function calcularConsumoYEmisiones() {
     consumosAutopista.push(consumoAutopista);
     consumosMixto.push(consumoMixto);
     rondas++;
+    document.getElementById('ronda').innerHTML = rondas.toString();
     window.alert("Rondas:"+rondas);
     // Actualizar los acumulados
     acumuladoCiudad += consumoCiudad;
@@ -460,4 +461,74 @@ function calcularConsumoYEmisiones() {
 
 function nuevaRonda() {
     document.getElementById('co2Form').reset();
+}
+
+function GraficarResultados(){
+
+    const labels = [1,2,3,4,5,6,7,8];
+    const Dato1 = acumuladoCiudad;
+    const Dato2 = acumuladoAutopista;
+    const Dato3 = acumuladoMixto;
+
+    //labels.push(`${data[i].Año} - ${data[i].Modelo}`);
+
+    var colorFondo = true;
+
+    var Grosor_Linea = 3;
+
+    var ColorBord_ConsumoCiudad = '#FF0000';
+    var ColorBord_ConsumoCarretera = '#008000';
+    var ColorBord_ConsumoMixto = '#0000FF';
+
+    var ColorFond_ConsumoCiudad = '255, 0, 0 , 0.2';
+    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.3';
+    var ColorFond_ConsumoMixto = '0, 0, 255, 0.4';
+
+
+    if(rondas >= 5){
+
+
+        nuevaGraficaChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Consumo Ciudad (L/100km)',
+                        data: Dato1,
+                        backgroundColor: 'rgba('+ColorFond_ConsumoCiudad+')',
+                        borderColor: ColorBord_ConsumoCiudad,
+                        borderWidth: Grosor_Linea,
+                        fill:colorFondo 
+                    },
+                    {
+                        label: 'Consumo Carretera (L/100km)',
+                        data: Dato2,
+                        backgroundColor: 'rgba('+ColorFond_ConsumoCarretera+')',
+                        borderColor: ColorBord_ConsumoCarretera,
+                        borderWidth: Grosor_Linea,
+                        fill:colorFondo
+                    },
+                    {
+                        label: 'Consumo Mixto (L/100km)',
+                        data: Dato3,
+                        backgroundColor: 'rgba('+ColorFond_ConsumoMixto+')',
+                        borderColor: ColorBord_ConsumoMixto,
+                        borderWidth: Grosor_Linea,
+                        fill:colorFondo
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }else{
+        window.alert("Tienes que tener minimo 5 rondas de pruevas.");
+    }
+
 }

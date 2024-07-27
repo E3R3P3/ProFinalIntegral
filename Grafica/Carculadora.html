@@ -34,141 +34,198 @@
     </nav>
 
     <main class="container mt-3" style="height: 1300px;">
-        <h1>Calcula el consumo de tu veiculo.</h1>
-        <div class="mt-4 mb-4">
-          <h2 class="mb-2">Calcular Consumo y Emisiones de CO2</h2>
-          <div class="container text-left">
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="marca">Marca del Vehículo:</label>
-                <input type="text" id="marca" name="marca" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="modelo">Modelo:</label>
-                <input type="text" id="modelo" name="modelo" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="anio">Año:</label>
-                <input type="number" id="anio" name="anio" class="form-control" required>
+        <form id="co2Form">
+          <div class="mt-4 mb-4">
+              <h2 class="mb-2">Calcular Consumo y Emisiones de CO2</h2><p>Rondas:<p id="ronda"></p></p>
+              <div class="container text-left">
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label for="marca">Marca del Vehículo:</label>
+                    <input type="text" id="marca" name="marca" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" name="modelo" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="ano">Año:</label>
+                    <select id="ano" class="form-control" required>
+                      <option value=""></option>
+                      <!-- Opciones de años -->
+                      <option value="2000">2000</option>
+                      <option value="2001">2001</option>
+                      <option value="2002">2002</option>
+                      <option value="2003">2003</option>
+                      <option value="2004">2004</option>
+                      <option value="2005">2005</option>
+                      <option value="2006">2006</option>
+                      <option value="2007">2007</option>
+                      <option value="2008">2008</option>
+                      <option value="2009">2009</option>
+                      <option value="2010">2010</option>
+                      <option value="2011">2011</option>
+                      <option value="2012">2012</option>
+                      <option value="2013">2013</option>
+                      <option value="2014">2014</option>
+                      <option value="2015">2015</option>
+                      <option value="2016">2016</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label for="generacion">Generación:</label>
+                    <select id="generacion" class="form-control">
+                      <option value=""></option>
+                      <option value="1ra generación">1ra</option>
+                      <option value="2da generación">2da</option>
+                      <option value="3ra generación">3ra</option>
+                      <option value="4ta generación">4ta</option>
+                      <option value="5ta generación">5ta</option>
+                      <option value="6ta generación">6ta</option>
+                      <option value="7ma generación">7ma</option>
+                      <option value="8va generación">8va</option>
+                      <option value="9na generación">9na</option>
+                      <option value="10ma generación">10ma</option>
+                      <option value="10va generación">10va</option>
+                      <option value="11va generación">11va</option>
+                      <option value="12va generación">12va</option>
+                    </select>              
+                  </div>
+                  <div class="col-md-4">
+                    <label for="tipoMotor">Tipo de Motor:</label>
+                    <select id="tipoMotor" class="form-control">
+                      <option value=""></option>
+                      <option value="Gasolina">Gasolina</option>
+                      <option value="Gasolina 1.0L">Gasolina 1.0L</option>
+                      <option value="Gasolina 1.0L Turbo">Gasolina 1.0L Turbo</option>
+                      <option value="Gasolina 1.2L">Gasolina 1.2L</option>
+                      <option value="Gasolina 1.2L Hybrid">Gasolina 1.2L Hybrid</option>
+                      <option value="Gasolina 1.2L Mild Hybrid">Gasolina 1.2L Mild Hybrid</option>
+                      <option value="Gasolina 1.3L">Gasolina 1.3L</option>
+                      <option value="Gasolina 1.4">Gasolina 1.4</option>
+                      <option value="Gasolina 1.4L">Gasolina 1.4L</option>
+                      <option value="Gasolina 1.4L Turbo">Gasolina 1.4L Turbo</option>
+                      <option value="Gasolina 1.5L">Gasolina 1.5L</option>
+                      <option value="Gasolina 1.5L Turbo">Gasolina 1.5L Turbo</option>
+                      <option value="Gasolina 1.6L">Gasolina 1.6L</option>
+                      <option value="Gasolina 1.6L Turbo Híbrido">Gasolina 1.6L Turbo Híbrido</option>
+                      <option value="Gasolina 1.8L">Gasolina 1.8L</option>
+                      <option value="Gasolina 1.9L Turbo">Gasolina 1.9L Turbo</option>
+                      <option value="Gasolina 2.0L">Gasolina 2.0L</option>
+                      <option value="Gasolina 2.0L Turbo">Gasolina 2.0L Turbo</option>
+                      <option value="Gasolina 2.4L">Gasolina 2.4L</option>
+                      <option value="Gasolina 2.5L">Gasolina 2.5L</option>
+                      <option value="Gasolina 2.5L Híbrido">Gasolina 2.5L Híbrido</option>
+                      <option value="Gasolina 2.7L V6">Gasolina 2.7L V6</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label for="tanqueInicialCiudad">Tanque Inicial (Ciudad) (L):</label>
+                    <input type="number" id="tanqueInicialCiudad" name="tanqueInicialCiudad" step="0.01" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="tanqueFinalCiudad">Tanque Final (Ciudad) (L):</label>
+                    <input type="number" id="tanqueFinalCiudad" name="tanqueFinalCiudad" step="0.01" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label for="tanqueInicialAutopista">Tanque Inicial (Autopista) (L):</label>
+                    <input type="number" id="tanqueInicialAutopista" name="tanqueInicialAutopista" step="0.01" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="tanqueFinalAutopista">Tanque Final (Autopista) (L):</label>
+                    <input type="number" id="tanqueFinalAutopista" name="tanqueFinalAutopista" step="0.01" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label for="tanqueInicialMixto">Tanque Inicial (Mixto) (L):</label>
+                    <input type="number" id="tanqueInicialMixto" name="tanqueInicialMixto" step="0.01" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="tanqueFinalMixto">Tanque Final (Mixto) (L):</label>
+                    <input type="number" id="tanqueFinalMixto" name="tanqueFinalMixto" step="0.01" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <button type="button" class="btn btn-primary" onclick="calcularConsumoYEmisiones()">Calcular Consumo y Emisiones de CO2</button>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary" onclick="nuevaRonda()">Nueva Ronda de Pruebas</button>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary" onclick="Guardar">Guardar</button>
+                  </div>
+                </div>
+            </div>
+          
+            <h2 class="mt-4">Resultados Acumulados</h2>
+            <div class="container text-left">
+              <div class="row">
+                <div class="col-md-4">
+                  <h3>Ciudad</h3>
+                  <p>Consumo Medio: <span id="consumoCiudad">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="emisionesCiudad">0</span> g/km</p>
+                </div>
+                <div class="col-md-4">
+                  <h3>Autopista</h3>
+                  <p>Consumo Medio: <span id="consumoAutopista">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="emisionesAutopista">0</span> g/km</p>
+                </div>
+                <div class="col-md-4">
+                  <h3>Mixto</h3>
+                  <p>Consumo Medio: <span id="consumoMixto">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="emisionesMixto">0</span> g/km</p>
+                </div>
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="generacion">Generación:</label>
-                <input type="text" id="generacion" name="generacion" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="tipoMotor">Tipo de Motor:</label>
-                <input type="text" id="tipoMotor" name="tipoMotor" class="form-control" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="tanqueInicialCiudad">Tanque Inicial (Ciudad) (L):</label>
-                <input type="number" id="tanqueInicialCiudad" name="tanqueInicialCiudad" step="0.01" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="tanqueFinalCiudad">Tanque Final (Ciudad) (L):</label>
-                <input type="number" id="tanqueFinalCiudad" name="tanqueFinalCiudad" step="0.01" class="form-control" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="tanqueInicialAutopista">Tanque Inicial (Autopista) (L):</label>
-                <input type="number" id="tanqueInicialAutopista" name="tanqueInicialAutopista" step="0.01" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="tanqueFinalAutopista">Tanque Final (Autopista) (L):</label>
-                <input type="number" id="tanqueFinalAutopista" name="tanqueFinalAutopista" step="0.01" class="form-control" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <label for="tanqueInicialMixto">Tanque Inicial (Mixto) (L):</label>
-                <input type="number" id="tanqueInicialMixto" name="tanqueInicialMixto" step="0.01" class="form-control" required>
-              </div>
-              <div class="col-md-4">
-                <label for="tanqueFinalMixto">Tanque Final (Mixto) (L):</label>
-                <input type="number" id="tanqueFinalMixto" name="tanqueFinalMixto" step="0.01" class="form-control" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-4">
-                <button type="button" class="btn btn-primary" onclick="calcularConsumoYEmisiones()">Calcular Consumo y Emisiones de CO2</button>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-secondary" onclick="nuevaRonda()">Nueva Ronda de Pruebas</button>
+          
+            <h2 id="promediosHeader" class="mt-4" style="display: none;">Resultados Promedios</h2>
+            <div class="container text-left">
+              <div class="row">
+                <div class="col-md-4">
+                  <h3>Ciudad</h3>
+                  <p>Consumo Medio: <span id="PromedioCiudad">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="PromedioEmisionesCiudad">0</span> g/km</p>
+                </div>
+                <div class="col-md-4">
+                  <h3>Autopista</h3>
+                  <p>Consumo Medio: <span id="PromedioAutopista">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="PromedioEmisionesAutopista">0</span> g/km</p>
+                </div>
+                <div class="col-md-4">
+                  <h3>Mixto</h3>
+                  <p>Consumo Medio: <span id="PromedioMixto">0</span> L/100km</p>
+                  <p>Emisiones de CO2: <span id="PromedioEmisionesMixto">0</span> g/km</p>
+                </div>
               </div>
             </div>
           </div>
-        
-          <h2 class="mt-4">Resultados Acumulados</h2>
-          <div class="container text-left">
-            <div class="row">
-              <div class="col-md-4">
-                <h3>Ciudad</h3>
-                <p>Consumo Medio: <span id="consumoCiudad">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="emisionesCiudad">0</span> g/km</p>
-              </div>
-              <div class="col-md-4">
-                <h3>Autopista</h3>
-                <p>Consumo Medio: <span id="consumoAutopista">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="emisionesAutopista">0</span> g/km</p>
-              </div>
-              <div class="col-md-4">
-                <h3>Mixto</h3>
-                <p>Consumo Medio: <span id="consumoMixto">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="emisionesMixto">0</span> g/km</p>
-              </div>
-            </div>
-          </div>
-        
-          <h2 id="promediosHeader" class="mt-4" style="display: none;">Resultados Promedios</h2>
-          <div class="container text-left">
-            <div class="row">
-              <div class="col-md-4">
-                <h3>Ciudad</h3>
-                <p>Consumo Medio: <span id="PromedioCiudad">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="PromedioEmisionesCiudad">0</span> g/km</p>
-              </div>
-              <div class="col-md-4">
-                <h3>Autopista</h3>
-                <p>Consumo Medio: <span id="PromedioAutopista">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="PromedioEmisionesAutopista">0</span> g/km</p>
-              </div>
-              <div class="col-md-4">
-                <h3>Mixto</h3>
-                <p>Consumo Medio: <span id="PromedioMixto">0</span> L/100km</p>
-                <p>Emisiones de CO2: <span id="PromedioEmisionesMixto">0</span> g/km</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+        </form>
     </main>
 
     <footer class="container-fluid text-center p-5 text-light" style="background-color: black;">© 2024 Proyecto de Eficiencia de Combustible en República Dominicana. Contáctanos: info@eficienciadecombustible.com | Síguenos en redes sociales: Facebook | Twitter | Instagram</footer>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
-  <!--<script src="./script.js"></script>-->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
