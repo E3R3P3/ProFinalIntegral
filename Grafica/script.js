@@ -398,6 +398,15 @@ let rondas = 0;
 const consumosCiudad = [];
 const consumosAutopista = [];
 const consumosMixto = [];
+ // Calcular los promedios
+ const promedioCiudad = 0;
+ const promedioAutopista = 0;
+ const promedioMixto = 0;
+
+ // Calcular las emisiones de CO2 (en gramos por kilómetro) para cada escenario
+ const emisionesCiudad = 0;
+ const emisionesAutopista = 0;
+ const emisionesMixto = 0;
 
 function calcularConsumoYEmisiones() {
     const factorCO2 = 2.31; // g CO2 por cada gramo de combustible quemado
@@ -532,3 +541,37 @@ function GraficarResultados(){
     }
 
 }
+
+document.getElementById('nuevoCarroForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const data = {
+        MarcaID: parseInt(document.getElementById('MarcaID').value),
+        Año: parseInt(document.getElementById('ano').value),
+        Generacion: document.getElementById('Generacion').value,
+        Tipo_Motor: document.getElementById('Tipo_Motor').value,
+        Consumo_Ciudad_L100km: parseFloat(document.getElementById('Consumo_Ciudad_L100km').value),
+        Consumo_Carretera_L100km: parseFloat(document.getElementById('Consumo_Carretera_L100km').value),
+        Consumo_Mixto_L100km: parseFloat(document.getElementById('Consumo_Mixto_L100km').value),
+        Promedio_kmL_Ciudad: parseFloat(document.getElementById('Promedio_kmL_Ciudad').value),
+        Promedio_kmL_Carretera: parseFloat(document.getElementById('Promedio_kmL_Carretera').value),
+        Promedio_kmL_Mixto: parseFloat(document.getElementById('Promedio_kmL_Mixto').value),
+        Modelo: document.getElementById('Modelo').value,
+    };
+
+    try {
+        const response = await fetch('http://localhost:2003/carros', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.text();
+        document.getElementById('resultadoInsertar').textContent = result;
+    } catch (error) {
+        console.error('Error al insertar el carro:', error);
+        document.getElementById('resultadoInsertar').textContent = 'Error al insertar el carro.';
+    }
+});
