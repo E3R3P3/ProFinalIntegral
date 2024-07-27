@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static (path.join (__dirname, 'public')));
 
-require('./src/consultas2');
+require('./src/consultas');
 
 app.get('/1', async (req, res) => {
   try {
