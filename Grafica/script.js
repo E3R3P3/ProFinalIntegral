@@ -1,5 +1,5 @@
 let carrosChart;
-
+exit;
 async function fetchCarrosData(query) {
     try {
         const response = await fetch(query);
