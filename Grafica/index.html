@@ -36,31 +36,54 @@
     <main class="container mt-3">
         <div class="row my-5">
             <div class="col-md-12">
-               <h1 class="mb-4">Viaja Inteligente Calcula y Optimiza tu Consumo de Combustible"</h1>
+               <h1 class="mb-4">"Viaja Inteligente Calcula y Optimiza tu Consumo de Combustible"</h1>
+               <img src="public/img/foto3.webp" width="100%" alt="" class="img-fluid rounded-5 mb-4">
                <p>
-                 Nuestro proyecto tiene como objetivo realizar un estudio exhaustivo sobre la eficiencia 
-                 de combustible de los vehículos con mayor circulación en la República Dominicana. 
-                 Buscamos mejorar la eficiencia energética, medida en kilómetros por litro (km/l), 
-                 para reducir significativamente el impacto ambiental y los costos económicos 
-                 asociados al uso de vehículos en el país.
+                  Nuestro proyecto tiene como objetivo llevar a cabo un estudio exhaustivo sobre la eficiencia 
+                  de combustible de los vehículos con mayor circulación en la República Dominicana. 
+                  Buscamos optimizar la eficiencia energética, medida en kilómetros por litro (km/l), 
+                  para reducir significativamente tanto el impacto ambiental como los costos económicos 
+                  asociados al uso de vehículos en el país.
                 </p>
             </div>
            
         <!--Grafica General-->
         <h1>Grafica General</h1>
-        <canvas id="nuevaGrafica" width="400" height="200"></canvas>
+        <canvas class="my-5" id="nuevaGrafica" width="400" height="200"></canvas>
         <div class="row  my-5">
             <h2 class="mb-4">¿Por que es importante?</h2>
             <p>El transporte vehicular es una de las principales fuentes de emisiones contaminantes en el país. <br> Mejorar la eficiencia del combustible no solo protege el medio ambiente, sino que también ahorra <br> dinero a los conductores.</p>
         </div>
         <!--Grafica General de Yaris-->
-        <h1>Grafica Consumos de modelo Yaris</h1>
-        <canvas id="GraficaDeModeloYaris" width="400" height="200"></canvas>
-        <!--Grafica Emision de Yaris-->
-        <h1>Emisiones de modelos Yaris</h1>
-        <canvas id="GraficaEmisionModelo" width="400" height="200"></canvas>
+        <article>
+          <h1>Grafica Consumos de modelo Yaris</h1>
+          <canvas class="my-5" id="GraficaDeModeloYaris" width="400" height="200"></canvas>
+          <div class="row">
+            <div class="col-md-6 my-auto">
+              <p>Se observa una tendencia general a bajar el consumo de combustible a lo largo de los años, esto sugiere una posible mejora a los motores del Yaris entorno a la eficiencia de combustible. Además de esto se puede inferir que las estabilizaciones en la gráfica podrían indicar varias cosas, lo primero es que no hubo cambios respecto al motor, lo segundo, que podrían pertenecer a una misma generación y si hubo cambios en el vehículo, a lo largo de los años, solo fueron cambios estéticos.</p>
+            </div>
+            <div class="col-md-6">
+              <img src="public/img/auto.jpeg " class="shadow-sm p-3 mb-5 rounded-5"  alt="">
+            </div>
+          </div>
+        </article>
 
-        
+        <!--Grafica Emision de Yaris-->
+
+        <article class="mb-4">
+          <h1>Emisiones de modelos Yaris</h1>
+          <canvas class="my-5" id="GraficaEmisionModelo" width="400" height="200"></canvas>
+          <div class="row">
+            <div class="col-md-6">
+              <img src="public/img/foto2.svg " class="img-thumbnail rounded-5"  alt="">
+            </div>
+            <div class="col-md-6 my-auto">
+              <p>Podemos usar el Teorema Fundamental del Cálculo para hacer una interpretación la gráfica de emisiones de CO2. Por ejemplo, podríamos decir que el área bajo cada curva representaría la cantidad total de CO2 emitida por un Yaris en un período específico y esto a su vez sería una representación de la acumulación de emisiones a lo largo del tiempo y de la tasa a la cual estas emisiones cambian. Las disminuciones, en general indican que las emisiones y las tasas de cambio negativas en la pendiente de la gráfica muestran una mejora en la eficiencia de los modelos Yaris y una respuesta positiva a las preocupaciones ambientales.</p>
+            </div>
+          </div>
+        </article>
+
+     
         <div class="row  my-5">
             <h2 class="mb-4">Impacto y Beneficios</h2>
             <div class="d-flex gap-5">
@@ -89,7 +112,7 @@
         </div>
     </main>
 
-    <footer class="container-fluid text-center p-5 text-light" style="background-color: black;">© 2024 Proyecto de Eficiencia de Combustible en República Dominicana. Todos los derechos reservados. Nos dedicamos a mejorar la eficiencia energética y reducir el impacto ambiental del transporte vehicular en nuestro país. Contáctanos: info@eficienciadecombustible.com | Síguenos en redes sociales: Facebook | Twitter | Instagram</footer>
+    <footer class="container-fluid text-center p-5 text-light" style="background-color: black;">© 2024 Proyecto de Eficiencia de Combustible en República Dominicana. Contáctanos: info@eficienciadecombustible.com | Síguenos en redes sociales: Facebook | Twitter | Instagram</footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
