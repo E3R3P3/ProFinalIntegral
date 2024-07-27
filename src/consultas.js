@@ -182,5 +182,5 @@ app1.get('/!carros', async (req, res) => {
 });
 
 app1.listen(port, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${port}`);
+    console.log(`Servidor de consultas ejecutándose en http://localhost:${port}`);
 });

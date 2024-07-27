@@ -1,7 +1,7 @@
 const config = {
     user: 'Nuevo',
     password: '1234567',
-    server: 'SEBASTIAN', 
+    server: 'LAPTOP-DRNASD59', 
     database: 'db_PrjItegral',
     options: {
         encrypt: false, // Usa SSL
