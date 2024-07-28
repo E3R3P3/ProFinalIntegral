@@ -109,7 +109,7 @@ function createChart(data) {
                     borderColor: ColorBord_ConsumoMixto,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
-                },
+                }/*,
                 {
                     label: 'Promedio Ciudad (km/L)',
                     data: promedioCiudad,
@@ -133,7 +133,7 @@ function createChart(data) {
                     borderColor: ColorBord_ConsumoMixto_Promedio,
                     borderWidth: Grosor_Linea,
                     fill:colorFondo
-                }
+                }*/
             ]
         },
         options: {
