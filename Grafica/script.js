@@ -1,5 +1,4 @@
 let carrosChart;
-
 var ColorBord_ConsumoCiudad = '#FF0000';
 var ColorBord_ConsumoCarretera = '#008000';
 var ColorBord_ConsumoMixto = '#0000FF';
