@@ -36,12 +36,24 @@
     <main class="container mt-3" style="height: 1300px;">
         <form id="co2Form">
           <div class="mt-4 mb-4">
-              <h2 class="mb-2">Calcular Consumo y Emisiones de CO2</h2><p>Rondas:<p id="ronda"></p></p>
+              <h2 class="mb-2">Calcular Consumo y Emisiones de CO2</h2>
+              <p>En esta calculadora, podrás obtener una estimación del consumo de combustible que tiene tu vehículo en su estado actual, además de conocer cuanto CO₂ estás emitiendo con él.</p>
+              <p>A continuación, se te piden que llenes los siguientes campos, tomando en cuenta que el funcionamiento de la calculadora se basa en rondas de estudios. Estas rondas de estudios, por lo menos en nuestro estudio, te piden un mínimo  5 rondas para que puedas saber el promedio de los datos, y además, poder guardar la información de tu vehículo en nuestra base de datos para apoyar a nuestros estudios.</p>
+              <p>Rondas:<p id="ronda"></p></p>
               <div class="container text-left">
                 <div class="row mb-3">
                   <div class="col-md-4">
                     <label for="marca">Marca del Vehículo:</label>
-                    <input type="text" id="MarcaID" name="marca" class="form-control" required>
+                    <select id="MarcaID" class="form-control" required>
+                      <option value="">Seleccione una Marca</option>
+                      <option value="1">Toyota</option>
+                      <option value="2">Honda</option>
+                      <option value="3">Hyundai</option>
+                      <option value="4">Kia</option>
+                      <option value="5">Suzuki</option>
+                      <option value="6">Nissan</option>
+                      <option value="7">Volkswagen</option>
+                    </select>
                   </div>
                   <div class="col-md-4">
                     <label for="modelo">Modelo:</label>
@@ -83,7 +95,7 @@
                 <div class="row mb-3">
                   <div class="col-md-4">
                     <label for="Generacion">Generación:</label>
-                    <select id="Generacion" class="form-control">
+                    <select id="Generacion" class="form-control" required>
                       <option value=""></option>
                       <option value="1ra generación">1ra</option>
                       <option value="2da generación">2da</option>
@@ -102,7 +114,7 @@
                   </div>
                   <div class="col-md-4">
                     <label for="Tipo_Motor">Tipo de Motor:</label>
-                    <select id="Tipo_Motor" class="form-control">
+                    <select id="Tipo_Motor" class="form-control" required>
                       <option value=""></option>
                       <option value="Gasolina">Gasolina</option>
                       <option value="Gasolina 1.0L">Gasolina 1.0L</option>
@@ -167,12 +179,12 @@
                     <button type="button" class="btn btn-secondary" onclick="nuevaRonda()">Nueva Ronda de Pruebas</button>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn btn-secondary" onclick="Guardar">Guardar</button>
+                    <button id="guardar" type="submit" class="btn btn-secondary">Guardar</button>
                   </div>
                 </div>
             </div>
           
-            <h2 class="mt-4">Resultados Acumulados</h2>
+            <h2 class="mt-4">Resultados.</h2>
             <div class="container text-left">
               <div class="row">
                 <div class="col-md-4">
@@ -193,23 +205,23 @@
               </div>
             </div>
           
-            <h2 id="promediosHeader" class="mt-4" style="display: none;">Resultados Promedios</h2>
-            <div class="container text-left">
+            <h2 id="promediosHeader" class="mt-4" style="display: none;">Promedios.</h2>
+            <div id="PromediosDatos" class="container text-left" style="display: none;">
               <div class="row">
                 <div class="col-md-4">
                   <h3>Ciudad</h3>
-                  <p>Consumo Medio: <span id="PromedioCiudad">0</span> L/100km</p>
-                  <p>Emisiones de CO2: <span id="PromedioEmisionesCiudad">0</span> g/km</p>
+                  <p>Promedio consumo: <span id="PromedioCiudad">0</span> L/100km</p>
+                  <p>Promedio emisiones de CO2: <span id="PromedioEmisionesCiudad">0</span> g/km</p>
                 </div>
                 <div class="col-md-4">
                   <h3>Autopista</h3>
-                  <p>Consumo Medio: <span id="PromedioAutopista">0</span> L/100km</p>
-                  <p>Emisiones de CO2: <span id="PromedioEmisionesAutopista">0</span> g/km</p>
+                  <p>Promedio consumo: <span id="PromedioAutopista">0</span> L/100km</p>
+                  <p>Promedio emisiones de CO2: <span id="PromedioEmisionesAutopista">0</span> g/km</p>
                 </div>
                 <div class="col-md-4">
                   <h3>Mixto</h3>
-                  <p>Consumo Medio: <span id="PromedioMixto">0</span> L/100km</p>
-                  <p>Emisiones de CO2: <span id="PromedioEmisionesMixto">0</span> g/km</p>
+                  <p>Promedio consumo: <span id="PromedioMixto">0</span> L/100km</p>
+                  <p>Promedio emisiones de CO2: <span id="PromedioEmisionesMixto">0</span> g/km</p>
                 </div>
               </div>
             </div>

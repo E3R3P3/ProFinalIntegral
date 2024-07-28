@@ -1,5 +1,21 @@
 let carrosChart;
-exit;
+
+var ColorBord_ConsumoCiudad = '#FF0000';
+var ColorBord_ConsumoCarretera = '#008000';
+var ColorBord_ConsumoMixto = '#0000FF';
+
+var ColorFond_ConsumoCiudad = '255, 0, 0 , 0.2';
+var ColorFond_ConsumoCarretera = '0, 128, 0, 0.3';
+var ColorFond_ConsumoMixto = '0, 0, 255, 0.4';
+
+var ColorBord_ConsumoCiudad_Promedio = '#FFFF00';
+var ColorBord_ConsumoCarretera_Promedio = '#DF8D00';
+var ColorBord_ConsumoMixto_Promedio = '#800080';
+
+var ColorFond_ConsumoCiudad_Promedio = '255, 255, 0, 0.1';
+var ColorFond_ConsumoCarretera_Promedio = '223, 141, 0, 0.2';
+var ColorFond_ConsumoMixto_Promedio = '128, 0, 128, 0.3';
+
 async function fetchCarrosData(query) {
     try {
         const response = await fetch(query);
@@ -49,7 +65,6 @@ function updateData() {
 
 function createChart(data) {
     const ctx = document.getElementById('carrosChart').getContext('2d');
-    //const labels = data.map(car => car.Modelo);
     const consumoCiudad = data.map(car => car.Consumo_Ciudad_L100km);
     const consumoCarretera = data.map(car => car.Consumo_Carretera_L100km);
     const consumoMixto = data.map(car => car.Consumo_Mixto_L100km);
@@ -65,21 +80,6 @@ function createChart(data) {
     var colorFondo = true;
 
     var Grosor_Linea = 3;
-
-    var ColorBord_ConsumoCiudad = '#FF0000';
-    var ColorBord_ConsumoCarretera = '#008000';
-    var ColorBord_ConsumoMixto = '#0000FF';
-    var ColorBord_ConsumoCiudad_Promedio = '#FFFF00';
-    var ColorBord_ConsumoCarretera_Promedio = '#DF8D00';
-    var ColorBord_ConsumoMixto_Promedio = '#800080';
-
-    var ColorFond_ConsumoCiudad = '255, 0, 0, 0.1';
-    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.2';
-    var ColorFond_ConsumoMixto = '0, 0, 255, 0.3';
-    var ColorFond_ConsumoCiudad_Promedio = '255, 255, 0, 0.1';
-    var ColorFond_ConsumoCarretera_Promedio = '223, 141, 0, 0.2';
-    var ColorFond_ConsumoMixto_Promedio = '128, 0, 128, 0.3';
-
 
     carrosChart = new Chart(ctx, {
         type: 'line',
@@ -146,9 +146,6 @@ function createChart(data) {
     });
 }
 
-// Obtener datos iniciales y crear un gráfico
-//fetchCarrosData('http://localhost:2233/carros?marcaId=1&ano=2011').then(data => createChart(data));
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,78 +153,9 @@ function createChart(data) {
 
 let nuevaGraficaChart;
 
-function GraficaGeneral(data) {
-    const ctx = document.getElementById('nuevaGrafica').getContext('2d');
-    //const labels = data.map(car => car.Modelo);
-    const consumoCiudad = data.map(car => car.Consumo_Ciudad_L100km);
-    const consumoCarretera = data.map(car => car.Consumo_Carretera_L100km);
-    const consumoMixto = data.map(car => car.Consumo_Mixto_L100km);
-    const promedioCiudad = data.map(car => car.Promedio_kmL_Ciudad);
-    const promedioCarretera = data.map(car => car.Promedio_kmL_Carretera);
-    const promedioMixto = data.map(car => car.Promedio_kmL_Mixto);
-    
-    // Crear etiquetas que incluyan el año y el modelo
-    const labels = [];
-    for (let i = 0; i < data.length; i++) {
-        labels.push(`${data[i].Año} - ${data[i].Modelo}`);
-    }
 
-    var colorFondo = true;
-
-    var Grosor_Linea = 3;
-
-    var ColorBord_ConsumoCiudad = '#FF0000';
-    var ColorBord_ConsumoCarretera = '#008000';
-    var ColorBord_ConsumoMixto = '#0000FF';
-
-    var ColorFond_ConsumoCiudad = '255, 0, 0 , 0.2';
-    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.3';
-    var ColorFond_ConsumoMixto = '0, 0, 255, 0.4';
-
-
-    nuevaGraficaChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Consumo Ciudad (L/100km)',
-                    data: consumoCiudad,
-                    backgroundColor: 'rgba('+ColorFond_ConsumoCiudad+')',
-                    borderColor: ColorBord_ConsumoCiudad,
-                    borderWidth: Grosor_Linea,
-                    fill:colorFondo 
-                },
-                {
-                    label: 'Consumo Carretera (L/100km)',
-                    data: consumoCarretera,
-                    backgroundColor: 'rgba('+ColorFond_ConsumoCarretera+')',
-                    borderColor: ColorBord_ConsumoCarretera,
-                    borderWidth: Grosor_Linea,
-                    fill:colorFondo
-                },
-                {
-                    label: 'Consumo Mixto (L/100km)',
-                    data: consumoMixto,
-                    backgroundColor: 'rgba('+ColorFond_ConsumoMixto+')',
-                    borderColor: ColorBord_ConsumoMixto,
-                    borderWidth: Grosor_Linea,
-                    fill:colorFondo
-                }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-function GraficaModelo(data) {
-    const ctx = document.getElementById('GraficaDeModeloYaris').getContext('2d');
+function GraficaModelo(data, Carro) {
+    const ctx = document.getElementById(Carro).getContext('2d');
     const label = data.map(car => car.Modelo);
     const consumoCiudad = data.map(car => car.Consumo_Ciudad_L100km);
     const consumoCarretera = data.map(car => car.Consumo_Carretera_L100km);
@@ -239,21 +167,17 @@ function GraficaModelo(data) {
         labels.push(`${data[i].Año} - ${data[i].Modelo}`);
     }
 
+    var tipe = 'line';
+    if(Carro == 'nuevaGrafica'){
+        tipe = 'bar';
+    }
+
     var colorFondo = true;
 
     var Grosor_Linea = 3;
 
-    var ColorBord_ConsumoCiudad = '#FF0000';
-    var ColorBord_ConsumoCarretera = '#008000';
-    var ColorBord_ConsumoMixto = '#0000FF';
-
-    var ColorFond_ConsumoCiudad = '255, 0, 0 , 0.2';
-    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.3';
-    var ColorFond_ConsumoMixto = '0, 0, 255, 0.4';
-
-
     nuevaGraficaChart = new Chart(ctx, {
-        type: 'line',
+        type: tipe,
         data: {
             labels: labels,
             datasets: [
@@ -300,10 +224,6 @@ function GraficaEmisionModelo(data) {
     const consumoCarretera = data.map(car => car.Consumo_Carretera_L100km);
     const consumoMixto = data.map(car => car.Consumo_Mixto_L100km);
 
-    const anos1 = data.map(car => car.Año);
-    const anos2 = data.map(car => car.Año);
-    const minAno = Math.min(...anos1);
-    const maxAno = Math.max(...anos2);
     // Crear etiquetas que incluyan el año y el modelo
     const labels = [];
     for (let i = 0; i < data.length; i++) {
@@ -372,20 +292,16 @@ function GraficaEmisionModelo(data) {
     });
 }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Llama a updateData con parámetros predeterminados para cargar la gráfica existente
-    fetchCarrosData('http://localhost:2233/carros?').then(data => createChart(data));
+function CargarPaginaInicio(){
+     // Llama a fetchNuevaGraficaData con parámetros específicos para cargar la nueva gráfica
+     fetchCarrosData('http://localhost:2233/carros?').then(data => GraficaModelo(data, 'nuevaGrafica'));
     
-    // Llama a fetchNuevaGraficaData con parámetros específicos para cargar la nueva gráfica
-    fetchCarrosData('http://localhost:2233/carros?').then(data => GraficaGeneral(data));
-    
-    // LLama a GraficaModelo PAra Poder Graficar el Yaris en este caso
-    fetchCarrosData('http://localhost:2233/carros?modelo=Yaris').then(data => GraficaModelo(data));
-
-    // LLama a Grafica Emiciones para Graficar Las Emiciones del Yaris en este caso.
-    fetchCarrosData('http://localhost:2233/carros?modelo=Yaris').then(data => GraficaEmisionModelo(data));
-});
+     // LLama a GraficaModelo PAra Poder Graficar el Yaris en este caso
+     fetchCarrosData('http://localhost:2233/carros?modelo=Yaris').then(data => GraficaModelo(data, 'GraficaDeModeloYaris'));
+ 
+     // LLama a Grafica Emiciones para Graficar Las Emiciones del Yaris en este caso.
+     fetchCarrosData('http://localhost:2233/carros?modelo=Yaris').then(data => GraficaEmisionModelo(data));
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,24 +310,19 @@ document.addEventListener('DOMContentLoaded', () => {
 let acumuladoCiudad = 0;
 let acumuladoAutopista = 0;
 let acumuladoMixto = 0;
+let _promedioCiudad = 0;
+let _promedioAutopista = 0;
+let _promedioMixto = 0;
 let rondas = 0;
 const consumosCiudad = [];
 const consumosAutopista = [];
 const consumosMixto = [];
- // Calcular los promedios
- const promedioCiudad = 0;
- const promedioAutopista = 0;
- const promedioMixto = 0;
-
- // Calcular las emisiones de CO2 (en gramos por kilómetro) para cada escenario
- const emisionesCiudad = 0;
- const emisionesAutopista = 0;
- const emisionesMixto = 0;
 
 function calcularConsumoYEmisiones() {
     const factorCO2 = 2.31; // g CO2 por cada gramo de combustible quemado
 
     // Obtener los datos del formulario
+    const BtnGuardar = document.getElementById('guardar');
     const tanqueInicialCiudad = parseFloat(document.getElementById('tanqueInicialCiudad').value);
     const tanqueFinalCiudad = parseFloat(document.getElementById('tanqueFinalCiudad').value);
     const tanqueInicialAutopista = parseFloat(document.getElementById('tanqueInicialAutopista').value);
@@ -430,7 +341,6 @@ function calcularConsumoYEmisiones() {
     consumosMixto.push(consumoMixto);
     rondas++;
     document.getElementById('ronda').innerHTML = rondas.toString();
-    window.alert("Rondas:"+rondas);
     // Actualizar los acumulados
     acumuladoCiudad += consumoCiudad;
     acumuladoAutopista += consumoAutopista;
@@ -438,6 +348,7 @@ function calcularConsumoYEmisiones() {
 
     if (rondas < 5) {
         // Mostrar resultados acumulados para rondas 1 a 4
+        BtnGuardar.disabled = true;
         document.getElementById('consumoCiudad').innerText = (acumuladoCiudad / rondas).toFixed(2);
         document.getElementById('emisionesCiudad').innerText = ((acumuladoCiudad / rondas) * factorCO2 * 10).toFixed(2);
         document.getElementById('consumoAutopista').innerText = (acumuladoAutopista / rondas).toFixed(2);
@@ -447,12 +358,16 @@ function calcularConsumoYEmisiones() {
     } else {
         // Mostrar sección de promedios a partir de la ronda 5
         document.getElementById('promediosHeader').style.display = 'block';
-
+        document.getElementById('PromediosDatos').style.display = 'block';
+        BtnGuardar.disabled = false;
         // Calcular los promedios
         const promedioCiudad = acumuladoCiudad / rondas;
         const promedioAutopista = acumuladoAutopista / rondas;
         const promedioMixto = acumuladoMixto / rondas;
 
+        _promedioCiudad = acumuladoCiudad / rondas;
+        _promedioAutopista = acumuladoAutopista / rondas;
+        _promedioMixto = acumuladoMixto / rondas;
         // Calcular las emisiones de CO2 (en gramos por kilómetro) para cada escenario
         const emisionesCiudad = promedioCiudad * factorCO2 * 10;
         const emisionesAutopista = promedioAutopista * factorCO2 * 10;
@@ -470,79 +385,10 @@ function calcularConsumoYEmisiones() {
 
 function nuevaRonda() {
     document.getElementById('co2Form').reset();
+    rondas = 0;
 }
 
-function GraficarResultados(){
-
-    const labels = [1,2,3,4,5,6,7,8];
-    const Dato1 = acumuladoCiudad;
-    const Dato2 = acumuladoAutopista;
-    const Dato3 = acumuladoMixto;
-
-    //labels.push(`${data[i].Año} - ${data[i].Modelo}`);
-
-    var colorFondo = true;
-
-    var Grosor_Linea = 3;
-
-    var ColorBord_ConsumoCiudad = '#FF0000';
-    var ColorBord_ConsumoCarretera = '#008000';
-    var ColorBord_ConsumoMixto = '#0000FF';
-
-    var ColorFond_ConsumoCiudad = '255, 0, 0 , 0.2';
-    var ColorFond_ConsumoCarretera = '0, 128, 0, 0.3';
-    var ColorFond_ConsumoMixto = '0, 0, 255, 0.4';
-
-
-    if(rondas >= 5){
-
-
-        nuevaGraficaChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Consumo Ciudad (L/100km)',
-                        data: Dato1,
-                        backgroundColor: 'rgba('+ColorFond_ConsumoCiudad+')',
-                        borderColor: ColorBord_ConsumoCiudad,
-                        borderWidth: Grosor_Linea,
-                        fill:colorFondo 
-                    },
-                    {
-                        label: 'Consumo Carretera (L/100km)',
-                        data: Dato2,
-                        backgroundColor: 'rgba('+ColorFond_ConsumoCarretera+')',
-                        borderColor: ColorBord_ConsumoCarretera,
-                        borderWidth: Grosor_Linea,
-                        fill:colorFondo
-                    },
-                    {
-                        label: 'Consumo Mixto (L/100km)',
-                        data: Dato3,
-                        backgroundColor: 'rgba('+ColorFond_ConsumoMixto+')',
-                        borderColor: ColorBord_ConsumoMixto,
-                        borderWidth: Grosor_Linea,
-                        fill:colorFondo
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }else{
-        window.alert("Tienes que tener minimo 5 rondas de pruevas.");
-    }
-
-}
-
-document.getElementById('nuevoCarroForm').addEventListener('submit', async function(event) {
+document.getElementById('co2Form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const data = {
@@ -550,12 +396,12 @@ document.getElementById('nuevoCarroForm').addEventListener('submit', async funct
         Año: parseInt(document.getElementById('ano').value),
         Generacion: document.getElementById('Generacion').value,
         Tipo_Motor: document.getElementById('Tipo_Motor').value,
-        Consumo_Ciudad_L100km: parseFloat(document.getElementById('Consumo_Ciudad_L100km').value),
-        Consumo_Carretera_L100km: parseFloat(document.getElementById('Consumo_Carretera_L100km').value),
-        Consumo_Mixto_L100km: parseFloat(document.getElementById('Consumo_Mixto_L100km').value),
-        Promedio_kmL_Ciudad: parseFloat(document.getElementById('Promedio_kmL_Ciudad').value),
-        Promedio_kmL_Carretera: parseFloat(document.getElementById('Promedio_kmL_Carretera').value),
-        Promedio_kmL_Mixto: parseFloat(document.getElementById('Promedio_kmL_Mixto').value),
+        Consumo_Ciudad_L100km: acumuladoCiudad,
+        Consumo_Carretera_L100km: acumuladoAutopista,
+        Consumo_Mixto_L100km: acumuladoMixto,
+        Promedio_kmL_Ciudad: _promedioCiudad,
+        Promedio_kmL_Carretera: _promedioAutopista,
+        Promedio_kmL_Mixto: _promedioMixto,
         Modelo: document.getElementById('Modelo').value,
     };
 
@@ -569,9 +415,12 @@ document.getElementById('nuevoCarroForm').addEventListener('submit', async funct
         });
 
         const result = await response.text();
+        window.alert('Datos Guardados.');
+        nuevaRonda();
         document.getElementById('resultadoInsertar').textContent = result;
     } catch (error) {
         console.error('Error al insertar el carro:', error);
-        document.getElementById('resultadoInsertar').textContent = 'Error al insertar el carro.';
+        window.alert('Error al gurdar los datos.');
     }
 });
+

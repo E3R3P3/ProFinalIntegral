@@ -230,7 +230,6 @@
                   <option value="">Consumo en carretera</option>
                   <option value="5.3">5.3</option>
                   <option value="5.9">5.9</option>
-                  <option value="6.1">6.1</option>
                   <option value="6.4">6.4</option>
                   <option value="6.7">6.7</option>
                   <option value="6.9">6.9</option>
@@ -330,13 +329,13 @@
     ></script>
   </body>
   <script src="./script.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
+      updateData();
       function bloque(element) {
         input =   document.querySelectorAll('select');
         if(element.value > 0){
