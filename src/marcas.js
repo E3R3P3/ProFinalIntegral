@@ -1,21 +1,22 @@
-const sql = require('mssql');
+const mysql = require('mysql2/promise');
 const config = require('./connection');
 
 async function getMarcaData(int) {
+    let pool;
     try {
-        // Conectar a la base de datos
-        let pool = await sql.connect(config);
+        // Crear el pool de conexiones
+        pool = await mysql.createPool(config);
 
-        // Realizar la consulta
-        let result = await pool.request().query(`SELECT * FROM Carros WHERE MarcaID = `+int+``);
+        // Realizar la consulta con parámetros para evitar inyección SQL
+        const [rows] = await pool.query('SELECT * FROM Carros WHERE MarcaID = ?', [int]);
 
-        return result.recordset;
+        return rows; // Retorna las filas obtenidas
     } catch (err) {
         console.error('SQL error', err);
         throw err;
     } finally {
-        // Cerrar la conexión de la base de datos
-        sql.close();
+        // Cerrar el pool para liberar recursos
+        if (pool) await pool.end();
     }
 }
 

@@ -1,18 +1,17 @@
-// dbconnection.js
-const sql = require('mssql');
+const mysql = require('mysql2/promise');
 const config = require('./connection');
 
 async function connectToDatabase() {
     try {
-        let pool = await sql.connect(config);
-        console.log("Conexión exitosa a SQL Server");
+        const pool = await mysql.createPool(config);
+        console.log("Conexión exitosa a MySQL");
         return pool;
     } catch (err) {
-        console.error("Error al conectar a SQL Server:", err);
+        console.error("Error al conectar a MySQL:", err);
+        throw err;
     }
 }
 
 module.exports = {
-    sql,
     connectToDatabase
 };

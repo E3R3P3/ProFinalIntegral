@@ -1,17 +1,10 @@
 const config = {
-    user: 'Nuevo',
-    password: '1234567',
-    server: 'LAPTOP-DRNASD59', 
+    host: 'localhost', // Cambia a la dirección de tu servidor MySQL
+    user: 'root',
+    password: '12345678',
     database: 'db_PrjItegral',
-    options: {
-        encrypt: false, // Usa SSL
-        enableArithAbort: true
-    },
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    }
+    port: 3306, // Puerto predeterminado de MySQL
+    connectionLimit: 10 // Límite de conexiones en el pool
 };
 
 module.exports = config;
