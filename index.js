@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static (path.join (__dirname, 'public')));
 
-require('./src/consultas2');
+require('./src/consultas');
 
 app.get('/1', async (req, res) => {
   try {
@@ -23,11 +23,24 @@ app.get('/1', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Pagina principal');
+  //res.send('Pagina principal');
+  res.render('index');
+});
+
+app.get('/index', (req, res) => {
+  res.render('index');
+});
+
+app.get('/calculadora', (req, res) => {
+  res.render('calculadora');
+});
+
+app.get('/veiculo', (req, res) => {
+  res.render('veiculo');
 });
 
 app.get('/home', (req, res) => {
-    res.render('index', { title: 'Mi Pagina Web', message: 'Hola Mundo' });
+    res.render('index', /*{ title: 'Mi Pagina Web', message: 'Hola Mundo' }*/);
 });
 
 app.get('/about', (req, res) => {
@@ -35,6 +48,6 @@ app.get('/about', (req, res) => {
 });  
 
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+  console.log(`Web corriendo en http://localhost:${port}/`);
 });
 

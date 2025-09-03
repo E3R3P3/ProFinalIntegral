@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 const config = {
-    host: 'localhost', // Cambia a la dirección de tu servidor MySQL
-    user: 'root',
-    password: '12345678',
-    database: 'db_PrjItegral',
-    port: 3306, // Puerto predeterminado de MySQL
-    connectionLimit: 10 // Límite de conexiones en el pool
-};
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  connectionLimit: parseInt(process.env.DB_CONN_LIMIT, 10)
+}
 
 module.exports = config;
